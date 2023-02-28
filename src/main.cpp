@@ -29,12 +29,12 @@ bool isAutoMode = false;
 
 void setup(void) {
     M5.begin();
-    M5.Lcd.setRotation(2);
+    M5.Lcd.setRotation(1);
     M5.Lcd.clear();
 
     M5.update();
     isAutoMode = M5.BtnA.isPressed();
-    M5.Lcd.println(isAutoMode ? "** Auto Mode **" : "** Button Mode **");
+    M5.Lcd.println(isAutoMode ? "** Auto Mode **" : "** Manual Mode **");
 
     if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
         M5.Lcd.println("Failed to mount SPIFFS");
