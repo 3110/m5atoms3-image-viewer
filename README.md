@@ -12,7 +12,7 @@ PlatformIO メニューから「Upload Filesystem Image」を選択するか，�
 
 ## 実行方法
 
-ATOMS3 を起動すると，SPIFFS の`/data`ディレクトリにある画像ファイル（PNG，JPEG，BMP）ファイルを順に表示します。
+ATOMS3 を起動すると，SPIFFS の`/data`ディレクトリにある画像ファイル（PNG，JPEG，BMP）を順に表示します。
 
 画面の向きはデフォルトでは USB Type-C の差し込み口を下にした向き（`M5.Lcd.setRotation(0)`）になっています。向きを変えたいときは，`M5.Lcd.setRotation()`の引数に渡す数字を変更してください。
 
