@@ -1,6 +1,6 @@
 # ATOMS3 用画像表示
 
-[ATOMS3](https://shop.m5stack.com/products/atoms3-dev-kit-w-0-85-inch-screen?variant=43676991258881)で動作する，SPIFFS 上にある画像を次々と表示するプログラムです。表示方法にはボタンを押すたびに画像を表示する「手動モード」と，一定間隔で画像が表示される「自動モード」があります。
+[ATOMS3](https://shop.m5stack.com/products/atoms3-dev-kit-w-0-85-inch-screen?variant=43676991258881)で動作する，SPIFFS 上にある画像を次々と表示するプログラムです。表示方法にはボタンを押すたびに画像を表示する「手動モード」と，一定間隔で画像を表示する「自動モード」があります。
 
 このプログラムは[PlatformIO IDE](https://platformio.org/platformio-ide)環境でコンパイルすることを想定しています。
 
