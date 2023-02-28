@@ -1,0 +1,31 @@
+{
+    "editor.formatOnSave": true,
+    "C_Cpp.clang_format_style": "file",
+    "[cpp]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+    },
+    "[markdown]": {
+        "editor.insertSpaces": false,
+    },
+    "[plaintext]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false,
+        "editor.comments.insertSpace": false
+    },
+    "files.associations": {
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp"
+    },
+    "cSpell.words": [],
+    "markdownlint.config": {
+        "MD033": false, // allow Inline HTML
+    }
+}
