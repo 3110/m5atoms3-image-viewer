@@ -4,6 +4,16 @@
 // clang-format on
 #include <string.h>
 
+enum Orientation
+{
+    OrientationNormal = 0,
+    OrientationRight,
+    OrientationUpsideDown,
+    OrientationLeft,
+};
+
+extern bool updateOrientation(float threshold);
+extern Orientation detectOrientation(float threshold);
 extern bool hasExt(const char* filename, const char* ext);
 extern bool isJpeg(const char* filename);
 extern bool isPng(const char* filename);
@@ -11,6 +21,8 @@ extern bool isBmp(const char* filename);
 extern bool isImageFile(const File& f);
 extern void showImage(const String* images, size_t p);
 extern void forever(void);
+
+const float GRAVITY_THRESHOLD = 0.75;
 
 const bool FORMAT_SPIFFS_IF_FAILED = true;
 
@@ -26,10 +38,13 @@ size_t nImageFiles = 0;
 size_t pos = 0;
 
 bool isAutoMode = false;
+Orientation orientation = OrientationNormal;
 
 void setup(void) {
-    M5.begin();
-    M5.Lcd.setRotation(0);
+    auto cfg = M5.config();
+    cfg.internal_imu = true;
+    M5.begin(cfg);
+    updateOrientation(GRAVITY_THRESHOLD);
     M5.Lcd.clear();
 
     M5.update();
@@ -73,12 +88,43 @@ void setup(void) {
 
 void loop(void) {
     M5.update();
+    bool orientationChanged = updateOrientation(GRAVITY_THRESHOLD);
     if (isAutoMode || M5.BtnA.wasClicked()) {
         pos = (pos + 1) % nImageFiles;
-        M5.Lcd.clear();
         showImage(imageFiles, pos);
+    } else {
+        if (orientationChanged) {
+            showImage(imageFiles, pos);
+        }
     }
     delay(isAutoMode ? AUTO_MODE_INTERVAL_MS : BUTTON_MODE_INTERVAL_MS);
+}
+
+bool updateOrientation(float threshold) {
+    const Orientation o = detectOrientation(threshold);
+    if (orientation != o) {
+        orientation = o;
+        M5.Lcd.setRotation(orientation);
+        return true;
+    }
+    return false;
+}
+
+Orientation detectOrientation(float threshold) {
+    if (M5.Imu.isEnabled()) {
+        float ax, ay, az;
+        M5.Imu.getAccel(&ax, &ay, &az);
+        if (ay >= threshold) {
+            return OrientationNormal;
+        } else if (ax >= threshold) {
+            return OrientationRight;
+        } else if (ax <= -threshold) {
+            return OrientationLeft;
+        } else if (ay <= -threshold) {
+            return OrientationUpsideDown;
+        }
+    }
+    return OrientationNormal;
 }
 
 bool hasExt(const char* filename, const char* ext) {
@@ -121,6 +167,7 @@ bool isImageFile(const File& f) {
 void showImage(const String images[], size_t p) {
     const char* filename = images[p].c_str();
     M5.Lcd.startWrite();
+    M5.Lcd.clear();
     if (isJpeg(filename)) {
         M5.Lcd.drawJpgFile(SPIFFS, filename, 0, 0);
     } else if (isPng(filename)) {
@@ -128,7 +175,6 @@ void showImage(const String images[], size_t p) {
     } else if (isBmp(filename)) {
         M5.Lcd.drawBmpFile(SPIFFS, filename, 0, 0);
     } else {
-        M5.Lcd.clear();
         M5.Lcd.printf("ignore: %s", filename);
         M5.Lcd.println();
     }
