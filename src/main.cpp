@@ -28,7 +28,6 @@ const bool FORMAT_SPIFFS_IF_FAILED = true;
 
 const uint32_t START_INTERVAL_MS = 3000;
 const uint32_t AUTO_MODE_INTERVAL_MS = 3000;
-const uint32_t BUTTON_MODE_INTERVAL_MS = 100;
 
 const String ROOT_DIR("/");
 
@@ -38,6 +37,7 @@ size_t nImageFiles = 0;
 size_t pos = 0;
 
 bool isAutoMode = false;
+uint32_t prevUpdate = 0;
 Orientation orientation = OrientationNormal;
 
 void setup(void) {
@@ -88,8 +88,11 @@ void setup(void) {
 
 void loop(void) {
     M5.update();
-    bool orientationChanged = updateOrientation(GRAVITY_THRESHOLD);
-    if (isAutoMode || M5.BtnA.wasClicked()) {
+    const bool orientationChanged = updateOrientation(GRAVITY_THRESHOLD);
+    const uint32_t t = millis();
+    if ((isAutoMode && t - prevUpdate >= AUTO_MODE_INTERVAL_MS) ||
+        M5.BtnA.wasClicked()) {
+        prevUpdate = t;
         pos = (pos + 1) % nImageFiles;
         showImage(imageFiles, pos);
     } else {
@@ -97,7 +100,7 @@ void loop(void) {
             showImage(imageFiles, pos);
         }
     }
-    delay(isAutoMode ? AUTO_MODE_INTERVAL_MS : BUTTON_MODE_INTERVAL_MS);
+    delay(100);
 }
 
 bool updateOrientation(float threshold) {
