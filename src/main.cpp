@@ -75,6 +75,7 @@ void loop(void) {
     M5.update();
     if (isAutoMode || M5.BtnA.wasClicked()) {
         pos = (pos + 1) % nImageFiles;
+        M5.Lcd.clear();
         showImage(imageFiles, pos);
     }
     delay(isAutoMode ? AUTO_MODE_INTERVAL_MS : BUTTON_MODE_INTERVAL_MS);
