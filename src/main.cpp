@@ -22,7 +22,7 @@ extern bool isImageFile(const File& f);
 extern void showImage(const String* images, size_t p);
 extern void forever(void);
 
-const float GRAVITY_THRESHOLD = 0.75;
+const float GRAVITY_THRESHOLD = 0.65;
 
 const bool FORMAT_SPIFFS_IF_FAILED = true;
 
