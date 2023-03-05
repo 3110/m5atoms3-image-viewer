@@ -1,44 +1,46 @@
-# ATOMS3 用画像表示
+[日本語版](README_ja_JP.md)
 
-[ATOMS3](https://shop.m5stack.com/products/atoms3-dev-kit-w-0-85-inch-screen?variant=43676991258881)で動作する，SPIFFS 上にある画像を次々と表示するプログラムです。表示方法にはボタンを押すたびに画像を表示する「手動モード」と，一定間隔で画像を表示する「自動モード」があります。
+# Image Viewer for ATOMS3
 
-このプログラムは[PlatformIO IDE](https://platformio.org/platformio-ide)環境でコンパイルすることを想定しています。
+This program is an image viewer for [ATOMS3](https://shop.m5stack.com/products/atoms3-dev-kit-w-0-85-inch-screen?variant=43676991258881) to display images on [SPIFFS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/storage/spiffs.html). There are two modes: "Manual mode," where images are displayed each time a button is pressed, and "Automatic mode," where images are displayed at regular intervals.
 
-## 表示する画像の転送方法
+You can compile this program on the [PlatformIO IDE](https://platformio.org/platformio-ide) environment.
 
-表示する 128px x 128px の画像ファイル（PNG，JPEG，BMP）を`data`ディレクトリに置きます。
+## How to transfer the image files
 
-PlatformIO メニューから「Upload Filesystem Image」を選択するか，コマンドラインから`pio run --target uploadfs`を実行して設定ファイルを SPIFFS にアップロードします。
+Place the 128 x 128 image files(PNG, JPEG, or BMP) to be displayed in the `data` directory.
 
-## 実行方法
+You can transfer your image files in the 'data' directory by selecting "Upload from the PlatformIO menu or invoking the command `pio run --target uploadfs`.
 
-ATOMS3 を起動すると，SPIFFS にある画像ファイル（PNG，JPEG，BMP）を順に表示します。画面の向きは ATOMS3 の向きに合わせて自動的に変わります。
+## How to use this program
 
-表示方法は以下の 2 通りです。
+When ATOMS3 is started, the image files on SPIFFS are displayed in order. The orientation of the screen changes automatically according to the orientation of ATOMS3.
 
-1. 手動モード  
-   ボタンを押すたびに表示する画像を切り替えます。
-2. 自動モード  
-   一定間隔（デフォルトは 3 秒）で画像を切り替えます。
+There are two ways to display images:
 
-通常は手動モードで起動します。ボタンを押しながら起動すると自動モードになります。
+1. Manual mode  
+   Switch images every time you push the button on ATOMS3.
+2. Automatic mode  
+   Switch images at regular intervals(the default interval is 3 seconds).
 
-起動すると以下の画面が表示されます。
+The default mode is the manual mode. If you boot ATOMS3 while holding down the button, it will be the automatic mode.
+
+After booting, the display mode and list of image files will appear:
 
 ```text
-*** Auto Mode *** もしくは *** Manual Mode ***
+*** Auto Mode *** or *** Manual Mode ***
 Image Files:
-  画像ファイル1
-  画像ファイル2
+  ImageFile1
+  ImageFile2
   ...
-  画像ファイルN
+  ImageFileN
 ```
 
-SPIFFS 上にファイルがない場合は，以下のように表示されます。
+There are no image files on SPIFFS, the following will appear:
 
 ```text
-*** Auto Mode *** もしくは *** Manual Mode ***
+*** Auto Mode *** or *** Manual Mode ***
 No image files found
 ```
 
-画面に画像一覧が表示されてから一定時間（デフォルトは 3 秒）が経過すると表示モードに応じて画面に画像が表示されます。
+The list of image files above is displayed for a time(the default is 3 seconds), and the image files on SPIFFS are displayed according to the display mode.
