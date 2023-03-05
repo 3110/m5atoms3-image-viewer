@@ -28,7 +28,8 @@ The default mode is the manual mode. If you boot ATOMS3 while holding down the b
 After booting, the display mode and list of image files will appear:
 
 ```text
-*** Auto Mode *** or *** Manual Mode ***
+Image Viewer v0.0.2
+** Auto Mode ** or ** Manual Mode **
 Image Files:
   ImageFile1
   ImageFile2
@@ -39,7 +40,8 @@ Image Files:
 There are no image files on SPIFFS, the following will appear:
 
 ```text
-*** Auto Mode *** or *** Manual Mode ***
+Image Viewer v0.0.2
+** Auto Mode ** or ** Manual Mode **
 No image files found
 ```
 

@@ -28,7 +28,8 @@ ATOMS3 を起動すると，SPIFFS にある画像ファイル（PNG，JPEG，BM
 起動すると以下の画面が表示されます。
 
 ```text
-*** Auto Mode *** もしくは *** Manual Mode ***
+Image Viewer v0.0.2
+** Auto Mode ** もしくは ** Manual Mode **
 Image Files:
   画像ファイル1
   画像ファイル2
@@ -39,7 +40,8 @@ Image Files:
 SPIFFS 上にファイルがない場合は，以下のように表示されます。
 
 ```text
-*** Auto Mode *** もしくは *** Manual Mode ***
+Image Viewer v0.0.2
+** Auto Mode ** もしくは ** Manual Mode **
 No image files found
 ```
 

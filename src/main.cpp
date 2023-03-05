@@ -4,6 +4,8 @@
 // clang-format on
 #include <string.h>
 
+const char* VERSION = "v0.0.2";
+
 enum Orientation
 {
     OrientationNormal = 0,
@@ -48,6 +50,8 @@ void setup(void) {
     M5.Lcd.clear();
 
     M5.update();
+    M5.Lcd.printf("Image Viewer %s", VERSION);
+    M5.Lcd.println();
     isAutoMode = M5.BtnA.isPressed();
     M5.Lcd.println(isAutoMode ? "** Auto Mode **" : "** Manual Mode **");
 
@@ -73,7 +77,6 @@ void setup(void) {
         M5.Lcd.println("No image files found");
         forever();
     }
-
     M5.Lcd.println("Image Files:");
     for (size_t c = 0; c < nImageFiles; ++c) {
         M5.Lcd.print("  ");
