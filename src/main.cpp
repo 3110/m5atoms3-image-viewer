@@ -170,7 +170,6 @@ bool isImageFile(const File& f) {
 void showImage(const String images[], size_t p) {
     const char* filename = images[p].c_str();
     M5.Lcd.startWrite();
-    M5.Lcd.clear();
     if (isJpeg(filename)) {
         M5.Lcd.drawJpgFile(SPIFFS, filename, 0, 0);
     } else if (isPng(filename)) {
