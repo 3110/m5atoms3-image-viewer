@@ -1,4 +1,4 @@
-[英語版](README.md)
+[In English](README.md)
 
 # ATOMS3 用画像表示
 
