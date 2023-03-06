@@ -14,6 +14,17 @@ Place the 128 x 128 image files(PNG, JPEG, or BMP) to be displayed in the `data`
 
 You can transfer your image files in the 'data' directory by selecting "Upload from the PlatformIO menu or invoking the command `pio run --target uploadfs`.
 
+## Config file
+
+If you transfer the following configuration file `data/image-viewer.json` to SPIFFS with your image files, you can specify whether the automatic mode is on or off and the interval of switching image files in the automatic mode. If there is no configuration file, the automatic mode(`AutoMode`) is off(`false`), and the interval(`AutoModeInterval`) is 3000 milliseconds by default.
+
+```json
+{
+  "AutoMode": false,
+  "AutoModeInterval": 3000
+}
+```
+
 ## How to use this program
 
 When ATOMS3 is started, the image files on SPIFFS are displayed in order. The orientation of the screen changes automatically according to the orientation of ATOMS3.
@@ -23,27 +34,37 @@ There are two ways to display images:
 1. Manual mode  
    Switch images every time you push the button on ATOMS3.
 2. Automatic mode  
-   Switch images at regular intervals(the default interval is 3 seconds).
+   Switch images at regular intervals.
 
-The default mode is the manual mode. If you boot ATOMS3 while holding down the button, it will be the automatic mode.
+The default mode is the mode you specify in the configuration file. If you boot ATOMS3 while holding down the button, it will be forced to the automatic mode instead of your configuration.
 
-After booting, the display mode and list of image files will appear:
+After booting ATOMS3, the following will appear on the screen. If there is no configuration file, the information on `Config:` will not appear.
 
 ```text
 Image Viewer v0.0.2
-** Auto Mode ** or ** Manual Mode **
+Config:
+ /image-viewer.json
+ AutoMode: false
+ Interval: 3000ms
+Mode:
+ Manual, Auto or Auto(Forced)
 Image Files:
-  ImageFile1
-  ImageFile2
-  ...
-  ImageFileN
+ ImageFile1
+ ImageFile2
+ ...
+ ImageFileN
 ```
 
 There are no image files on SPIFFS, the following will appear:
 
 ```text
 Image Viewer v0.0.2
-** Auto Mode ** or ** Manual Mode **
+Config:
+ /image-viewer.json
+ AutoMode: false
+ Interval: 3000ms
+Mode:
+ Manual, Auto or Auto(Forced)
 No image files found
 ```
 
