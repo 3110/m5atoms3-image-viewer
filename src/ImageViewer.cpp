@@ -3,7 +3,7 @@
 #include <Arduino_JSON.h>
 #include <string.h>
 
-const char* ImageViewer::VERSION = "v0.0.2";
+const char* ImageViewer::VERSION = "v0.0.3";
 
 const char* ImageViewer::DEFAULT_CONFIG_NAME = "image-viewer.json";
 const char* ImageViewer::KEY_AUTO_MODE = "AutoMode";
