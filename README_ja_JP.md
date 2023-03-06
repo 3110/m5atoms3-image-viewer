@@ -8,6 +8,8 @@
 
 ## 表示する画像の転送方法
 
+SPIFSS はこのリポジトリにあるパーティションテーブル`no_ota_8MB.csv`を使用して 7 MiB の容量を確保しています。
+
 表示する 128px x 128px の画像ファイル（PNG，JPEG，BMP）を`data`ディレクトリに置きます。
 
 PlatformIO メニューから「Upload Filesystem Image」を選択するか，コマンドラインから`pio run --target uploadfs`を実行して画像ファイルを SPIFFS にアップロードします。

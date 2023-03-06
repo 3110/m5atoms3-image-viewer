@@ -8,6 +8,8 @@ You can compile this program on the [PlatformIO IDE](https://platformio.org/plat
 
 ## How to transfer the image files
 
+The capacity of SPIFFS is 7 MiB allocated with the partition table `no_ota_8MB.csv` in this repository.
+
 Place the 128 x 128 image files(PNG, JPEG, or BMP) to be displayed in the `data` directory.
 
 You can transfer your image files in the 'data' directory by selecting "Upload from the PlatformIO menu or invoking the command `pio run --target uploadfs`.
