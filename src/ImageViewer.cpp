@@ -13,6 +13,10 @@ const float ImageViewer::GRAVITY_THRESHOLD = 0.65;
 const String ImageViewer::ROOT_DIR("/");
 
 static const bool FORMAT_SPIFFS_IF_FAILED = true;
+static const char* EXT_JPG = ".jpg";
+static const char* EXT_JPEG = ".jpeg";
+static const char* EXT_BMP = ".bmp";
+static const char* EXT_PNG = ".png";
 
 ImageViewer::ImageViewer(bool isAutoMode, uint32_t autoModeInterval)
     : _isAutoMode(isAutoMode),
@@ -152,21 +156,21 @@ bool ImageViewer::isJpeg(const char* filename) {
     if (filename == nullptr) {
         return false;
     }
-    return hasExt(filename, ".jpg") || hasExt(filename, ".jpeg");
+    return hasExt(filename, EXT_JPG) || hasExt(filename, EXT_JPEG);
 }
 
 bool ImageViewer::isPng(const char* filename) {
     if (filename == nullptr) {
         return false;
     }
-    return hasExt(filename, ".png");
+    return hasExt(filename, EXT_PNG);
 }
 
 bool ImageViewer::isBmp(const char* filename) {
     if (filename == nullptr) {
         return false;
     }
-    return hasExt(filename, ".bmp");
+    return hasExt(filename, EXT_BMP);
 }
 
 bool ImageViewer::isImageFile(const File& f) {
