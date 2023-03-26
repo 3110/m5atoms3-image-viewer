@@ -20,17 +20,20 @@ public:
     static const char* DEFAULT_CONFIG_NAME;
     static const char* KEY_AUTO_MODE;
     static const char* KEY_AUTO_MODE_INTERVAL;
+    static const char* KEY_AUTO_MODE_RANDOMIZED;
 
     static const size_t MAX_IMAGE_FILES = 50;
     static const bool DEFAULT_AUTO_MODE = false;
     static const uint32_t DEFAULT_START_INTERVAL_MS = 3000;
     static const uint32_t DEFAULT_AUTO_MODE_INTERVAL_MS = 3000;
+    static const bool DEFAULT_AUTO_MODE_RANDOMIZED = false;
 
     static const float GRAVITY_THRESHOLD;
     static const String ROOT_DIR;
 
     ImageViewer(bool isAutoMode = DEFAULT_AUTO_MODE,
-                uint32_t autoModeInterval = DEFAULT_AUTO_MODE_INTERVAL_MS);
+                uint32_t autoModeInterval = DEFAULT_AUTO_MODE_INTERVAL_MS,
+                bool isAutoModeRandomize = DEFAULT_AUTO_MODE_RANDOMIZED);
     virtual ~ImageViewer(void);
 
     virtual bool begin(void);
@@ -52,9 +55,11 @@ protected:
 private:
     bool _isAutoMode;
     uint32_t _autoModeInterval;
+    bool _isAutoModeRandomized;
     String _imageFiles[MAX_IMAGE_FILES];
     size_t _nImageFiles;
     size_t _pos;
     uint32_t _prevUpdate;
     Orientation _orientation;
+    uint32_t _interval;
 };
