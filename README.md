@@ -16,14 +16,17 @@ You can transfer your image files in the `data` directory by selecting "Upload f
 
 ## Config file
 
-If you transfer the following configuration file `data/image-viewer.json` to SPIFFS with your image files, you can specify whether the automatic mode is on or off and the interval of switching image files in the automatic mode. If there is no configuration file, the automatic mode(`AutoMode`) is off(`false`), and the interval(`AutoModeInterval`) is 3000 milliseconds by default.
+If you transfer the following configuration file `data/image-viewer.json` to SPIFFS with your image files, you can specify whether the automatic mode is on or off, the interval of switching image files in the automatic mode, and whether the random switch interval mode is on or off. If there is no configuration file, the automatic mode(`AutoMode`) is off(`false`), the interval(`AutoModeInterval`) is 3000 milliseconds, the random switch mode(`AutoModeRandomized`) is off(`false`) by default.
 
 ```json
 {
   "AutoMode": false,
-  "AutoModeInterval": 3000
+  "AutoModeInterval": 3000,
+  "AutoModeRandomized": false
 }
 ```
+
+When the random switch interval mode is turned on, the image will be switched at random intervals between 0 milliseconds and the number of milliseconds specified by `AutoModeInterval`(a new feature added in v0.0.4).
 
 ## How to use this program
 
@@ -46,6 +49,7 @@ Config:
  /image-viewer.json
  AutoMode: false
  Interval: 3000ms
+ Randomized: false
 Mode:
  Manual, Auto or Auto(Forced)
 Image Files:
@@ -63,6 +67,7 @@ Config:
  /image-viewer.json
  AutoMode: false
  Interval: 3000ms
+ Randomized: false
 Mode:
  Manual, Auto or Auto(Forced)
 No image files found

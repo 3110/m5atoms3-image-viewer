@@ -16,14 +16,17 @@ PlatformIO メニューから「Upload Filesystem Image」を選択するか，�
 
 ## 設定ファイル
 
-`data/image-viewer.json`を SPIFFS に転送すると，自動モードのオン・オフと自動モードのときの画像の切り替え間隔（ミリ秒）を指定することができます。設定ファイルがない場合は自動モード（`AutoMode`）はオフ（`false`），切り替え間隔（`AutoModeInterval`）は 3 秒（3000 ミリ秒）になっています。
+`data/image-viewer.json`を SPIFFS に転送すると，自動モードのオン・オフ，自動モードのときの画像の切り替え間隔（ミリ秒），ランダム切り替え間隔モードのオン・オフを指定することができます。設定ファイルがない場合は自動モード（`AutoMode`）はオフ（`false`），切り替え間隔（`AutoModeInterval`）は 3 秒（3000 ミリ秒），ランダム切り替え間隔モード（`AutoModeRandomized`）はオフ（`false`）になっています。
 
 ```json
 {
   "AutoMode": false,
-  "AutoModeInterval": 3000
+  "AutoModeInterval": 3000,
+  "AutoModeRandomized": false
 }
 ```
+
+ランダム切り替え間隔モードをオンにすると，0 ミリ秒から`AutoModeInterval`で指定したミリ秒の間のランダムな間隔で画像を切り替えます（v0.0.4 からの新機能）。
 
 ## 実行方法
 
@@ -46,6 +49,7 @@ Config:
  /image-viewer.json
  AutoMode: false
  Interval: 3000ms
+ Randomized: false
 Mode:
  Manual, Auto or Auto(Forced)
 Image Files:
@@ -55,7 +59,7 @@ Image Files:
  画像ファイルN
 ```
 
-SPIFFS 上にファイルがない場合は，以下のように表示されます。
+SPIFFS 上に画像ファイルがない場合は，以下のように表示されます。
 
 ```text
 Image Viewer v0.0.2
@@ -63,6 +67,7 @@ Config:
  /image-viewer.json
  AutoMode: false
  Interval: 3000ms
+ Randomized: false
 Mode:
  Manual, Auto or Auto(Forced)
 No image files found

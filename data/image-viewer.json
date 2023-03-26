@@ -1,4 +1,5 @@
 {
   "AutoMode": false,
-  "AutoModeInterval": 3000
+  "AutoModeInterval": 3000,
+  "AutoModeRandomized": false
 }

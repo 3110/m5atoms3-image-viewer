@@ -3,11 +3,12 @@
 #include <Arduino_JSON.h>
 #include <string.h>
 
-const char* ImageViewer::VERSION = "v0.0.3";
+const char* ImageViewer::VERSION = "v0.0.4";
 
 const char* ImageViewer::DEFAULT_CONFIG_NAME = "image-viewer.json";
 const char* ImageViewer::KEY_AUTO_MODE = "AutoMode";
 const char* ImageViewer::KEY_AUTO_MODE_INTERVAL = "AutoModeInterval";
+const char* ImageViewer::KEY_AUTO_MODE_RANDOMIZED = "AutoModeRandomized";
 
 const float ImageViewer::GRAVITY_THRESHOLD = 0.65;
 const String ImageViewer::ROOT_DIR("/");
@@ -18,14 +19,18 @@ static const char* EXT_JPEG = ".jpeg";
 static const char* EXT_BMP = ".bmp";
 static const char* EXT_PNG = ".png";
 
-ImageViewer::ImageViewer(bool isAutoMode, uint32_t autoModeInterval)
+ImageViewer::ImageViewer(bool isAutoMode, uint32_t autoModeInterval,
+                         bool isAutoModeRandomized)
     : _isAutoMode(isAutoMode),
       _autoModeInterval(autoModeInterval),
+      _isAutoModeRandomized(),
       _imageFiles{""},
       _nImageFiles(0),
       _pos(0),
       _prevUpdate(0),
-      _orientation(OrientationNormal) {
+      _orientation(OrientationNormal),
+      _interval(autoModeInterval) {
+    randomSeed(analogRead(0));
 }
 
 ImageViewer::~ImageViewer(void) {
@@ -73,12 +78,14 @@ bool ImageViewer::update(void) {
     M5.update();
     const bool orientationChanged = updateOrientation(GRAVITY_THRESHOLD);
     const uint32_t t = millis();
-    if ((this->_isAutoMode &&
-         t - this->_prevUpdate >= this->_autoModeInterval) ||
+    if ((this->_isAutoMode && t - this->_prevUpdate >= this->_interval) ||
         M5.BtnA.wasClicked()) {
         this->_prevUpdate = t;
         this->_pos = (this->_pos + 1) % this->_nImageFiles;
         showImage(this->_imageFiles, this->_pos);
+        if (this->_isAutoMode && this->_isAutoModeRandomized) {
+            this->_interval = random(this->_autoModeInterval);
+        }
         return true;
     } else {
         if (orientationChanged) {
@@ -226,5 +233,11 @@ bool ImageViewer::parse(const char* config) {
     this->_autoModeInterval = (uint32_t)o[KEY_AUTO_MODE_INTERVAL];
     M5.Lcd.printf(" Interval: %dms", this->_autoModeInterval);
     M5.Lcd.println();
+    if (o.hasOwnProperty(KEY_AUTO_MODE_RANDOMIZED)) {
+        this->_isAutoModeRandomized = (bool)o[KEY_AUTO_MODE_RANDOMIZED];
+        M5.Lcd.printf(" Randomized: %s",
+                      this->_isAutoModeRandomized ? "true" : "false");
+        M5.Lcd.println();
+    }
     return true;
 }
